@@ -44,11 +44,11 @@ Auto configuration failed
 
  * In direct correlation to the size of the Twitch page that will be retrieved, PHP may exhaust the set memory limit. Configuring the parameter `memory_limit` in `php.ini` accordingly may be necessary.
  * Although PhantomJS is open source, it has not seen a new release since [2.1.1 - dated January 24, 2016](https://github.com/ariya/phantomjs/releases/tag/2.1.1). This script relies upon PhantomJS as Javascript support is a required function of Twitch. As a result, usage of cURL is not a viable option for this project. Should Twitch break this in some way that PhantomJS no longer supports it, this script can be considered to be functionally unusable - barring an update that utilizes an alternative method such as [Symfony Panther](https://github.com/symfony/panther).
- * Concurrently, although PhantomJS is open source, and although the [configuration file](res/config.inc.php) makes reference to it being in the path [./bin](bin/), PhantomJS is not distributed as a part of this project. Binaries should instead be retrieved from [PhantomJS' official source](https://phantomjs.org/). Additionally, specifying the path to PhantomJS is optional as the script will look for it on the default system `$PATH` (see: Requirements); though the default specification in [res/config.inc.php](res/config.inc.php) will look for it at `./bin/phantomjs`, that parameter can be simply blanked out (rely on $PATH), or pointed to the full path of the binary.
+ * Concurrently, although PhantomJS is open source, and although the [configuration file](res/config.inc.php) makes reference to it being in the path [./bin](bin/), PhantomJS is not distributed as a part of this project. Binaries should instead be retrieved from [PhantomJS' official source](https://phantomjs.org/). Additionally, specifying the path to PhantomJS is optional as the script will look for it on the default system `$PATH` (see: Requirements); though the default specification in [res/config.inc.php](res/config.inc.php) will look for it at `./bin/phantomjs`, that parameter can be simply blanked out (rely on `$PATH`), or pointed to the full path of the binary.
  * This project makes use of [simplehtmldom](https://github.com/simplehtmldom/simplehtmldom) for parsing through the DOM of the retrieved page.
 
 ----
 
-### Standard Faire:
+### Standard Fare:
 
 This is provided with no warranty nor a gaurantee of any kind.
