@@ -1,0 +1,5 @@
+bin/phantomjs
+tst/output-online.png
+tst/output-offline.png
+tst/output-online.html
+tst/output-offline.html
