@@ -30,12 +30,14 @@
 			/*
 				This object is the avatar. Below it, Twitch shows "LIVE" if the channel is actively streaming.
 			*/
-			// $i = 0;
 			foreach($input->find("div[class=sc-AxjAm hBZJQK]") as $row)
 			{
-				// print "[$i] - \"" . $row->plaintext . "\"" . PHP_EOL;
 				array_push($dom_objects, $row->plaintext);
-				// ++$i;
+			}
+
+			foreach($input->find("div[class*=live-indicator-container]") as $row)
+			{
+				array_push($dom_objects, $row->plaintext);
 			}
 
 			/*
@@ -47,12 +49,9 @@
 				Because the second noted <div> element is a sub element of the <div> element with a class of "sc-AxjAm hBZJQK", it will be found in the list
 				of DOM objects. Accordingly, this will be a secondary check to see if the channel is hosting, or even explitly offline.
 			*/
-			// $i = 0;
 			foreach($input->find("div[class=sc-AxjAm qTZAo]") as $row)
 			{
-				// print "[$i] - \"" . $row->plaintext . "\"" . PHP_EOL;
 				array_push($dom_objects, $row->plaintext);
-				// ++$i;
 			}
 
 			// print_r($dom_objects);
