@@ -5,7 +5,7 @@
 	*/
 	if(!function_exists("process_status_check"))
 	{
-		function process_status_check($input)
+		function process_status_check($input, $debug)
 		{
 			/*
 				Input validation.
@@ -49,17 +49,37 @@
 				Because the second noted <div> element is a sub element of the <div> element with a class of "sc-AxjAm hBZJQK", it will be found in the list
 				of DOM objects. Accordingly, this will be a secondary check to see if the channel is hosting, or even explitly offline.
 			*/
+			foreach($input->find("div[class*=channel-status-info--hosting]") as $row)
+			{
+				array_push($dom_objects, $row->plaintext);
+			}
+
 			foreach($input->find("div[class=sc-AxjAm qTZAo]") as $row)
 			{
 				array_push($dom_objects, $row->plaintext);
 			}
 
-			// print_r($dom_objects);
-			// var_dump($dom_objects);
+			/*
+				This is an explicit check for an element containing "channel-status-info". When a channel is actually offline, such tends to show here.
+			*/
+			foreach($input->find("div[class*=channel-status-info]") as $row)
+			{
+				array_push($dom_objects, $row->plaintext);
+			}
+
+			/*
+				Having trouble?
+				Amend the configuration to set ["debug_mode"] to true.
+			*/
+			if($debug === true)
+			{
+				var_dump($dom_objects);
+				print_r($dom_objects);
+			}
 
 			if(in_array("Offline", $dom_objects))
 			{
-				// Channel is Live!
+				// Channel is Offline.
 				$status = (bool) false;
 			}
 			elseif(in_array("Hosting", $dom_objects))

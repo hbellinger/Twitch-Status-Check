@@ -121,8 +121,7 @@
 
 		if($config["debug_mode"] === true)
 		{
-			// Never var_dump the DOM.
-			// var_dump($dom);
+			// Never. Ever. var_dump(). The DOM.
 		}
 	}
 	catch (Exception $e)
@@ -141,7 +140,7 @@
 	try
 	{
 		print "[$guid] Parsing DOM for Status." . PHP_EOL;
-		$status = process_status_check($dom);
+		$status = process_status_check($dom, $config["debug_mode"]);
 
 		if($config["debug_mode"] === true)
 		{
