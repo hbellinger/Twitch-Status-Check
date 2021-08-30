@@ -23,19 +23,80 @@
 			$dom_objects = array();
 
 			/*
+				https://stackoverflow.com/a/31796119/5812026
+				This is a check to look for elements containing a specific string of text.
+			*/
+			$page_scripts = $input->find("script");
+			foreach($page_scripts as $row)
+			{
+				if(strpos($row->innertext, '"@type":"VideoObject"') == true)
+				{
+					array_push($dom_objects, $row->innertext);
+				}
+				if(strpos($row->innertext, '"isLiveBroadcast":true') == true)
+				{
+					array_push($dom_objects, $row->innertext);
+				}
+			}
+
+			/*
+				Having trouble?
+				Amend the configuration to set ["debug_mode"] to true.
+			*/
+			if($debug === true)
+			{
+				var_dump($dom_objects);
+				// print_r($dom_objects);
+			}
+
+			if((count($dom_objects) > (int) 0) === true)
+			{
+				// Channel is Live.
+				$status = (bool) true;
+				return $status;
+			}
+			else
+			{
+				/*
+					Channel Status is Indeterminate.
+					Fallback to less accurate, extremely inconsistent measures.
+				*/
+			}
+
+			/*
+				These need to be wiped.
+				Unset them and start over.
+			*/
+			unset($page_scripts);
+			unset($dom_objects);
+			unset($row);
+
+			/*
+				Construct Array for Usage
+				(Try again)
+			*/
+			$dom_objects = array();
+
+			/*
 				https://stackoverflow.com/a/37627269
 				https://stackoverflow.com/questions/15761115/find-div-with-class-using-php-simple-html-dom-parser
-			*/
-			
-			/*
+
 				This object is the avatar. Below it, Twitch shows "LIVE" if the channel is actively streaming.
 			*/
-			foreach($input->find("div[class=sc-AxjAm hBZJQK]") as $row)
+			foreach($input->find("div[class*=ScChannelStatusTextIndicator]") as $row)
 			{
-				array_push($dom_objects, $row->plaintext);
+				array_push($dom_objects, $row->innertext);
 			}
 
 			foreach($input->find("div[class*=live-indicator-container]") as $row)
+			{
+				array_push($dom_objects, $row->innertext);
+			}
+			foreach($input->find("div[class*=tw-channel-status-text-indicator]") as $row)
+			{
+				array_push($dom_objects, $row->plaintext);
+			}
+			foreach($input->find("div[class*=channel-status-info]") as $row)
 			{
 				array_push($dom_objects, $row->plaintext);
 			}
@@ -68,13 +129,21 @@
 			}
 
 			/*
+				This object is the entire channel info section, and represents a far more aggresive check.
+			*/
+			foreach($input->find("div[class=channel-info-content]") as $row)
+			{
+				array_push($dom_objects, $row->plaintext);
+			}
+
+			/*
 				Having trouble?
 				Amend the configuration to set ["debug_mode"] to true.
 			*/
 			if($debug === true)
 			{
 				var_dump($dom_objects);
-				print_r($dom_objects);
+				// print_r($dom_objects);
 			}
 
 			if(in_array("Offline", $dom_objects))
