@@ -112,9 +112,6 @@
 				https://www.php.net/manual/en/function.is-executable.php
 			*/
 			$result = shell_exec(escapeshellcmd("$command"));
-			// $result = file_get_contents("/data/2019-06.txt");
-			// $result = file_get_contents("/data/2019-07.txt");
-			// $result = file_get_contents("/data/2019-08.txt");
 
 			/*
 				Check to see if the result of "shell_exec" is null.
