@@ -121,9 +121,14 @@
 			}
 
 			/*
-			 * This is an explicit check for an element containing "channel-status-info". When a channel is actually offline, such tends to show here.
+			 * This is an explicit check for an element containing "channel-status-info".
+			 * When a channel is actually offline, such tends to show here.
 			 */
 			foreach($input->find("div[class*=channel-status-info]") as $row)
+			{
+				array_push($dom_objects, $row->plaintext);
+			}
+			foreach($input->find("div[class=channel-status-info]") as $row)
 			{
 				array_push($dom_objects, $row->plaintext);
 			}
@@ -154,7 +159,7 @@
 				// print_r($dom_objects);
 			}
 
-			if(in_array("Offline", $dom_objects))
+			if(in_array("Offline", $dom_objects) || in_array("OFFLINE", $dom_objects))
 			{
 				// Channel is Offline.
 				$status = (bool) false;
@@ -164,7 +169,7 @@
 				// Channel is Not Live.
 				$status = (bool) false;
 			}
-			elseif(in_array("LIVE", $dom_objects))
+			elseif(in_array("Live", $dom_objects) || in_array("LIVE", $dom_objects))
 			{
 				// Channel is Live.
 				$status = (bool) true;
