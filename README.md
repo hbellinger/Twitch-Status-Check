@@ -1,5 +1,9 @@
 # Twitch Channel Status Check
 
+### Archived
+
+This is no longer maintained and should not be utilized as it is terribly slow, resource intensive, would require constantly checking for updates to the Twitch UI - thus making it unreliable, and there are far more efficient ways to obtain the status of a Twitch stream by way of the Twitch API or GraphQL interface. It was a project undertaken at the time as more of a "what if I could", but is not something that should ever be used in a production environment. No further changes will be made to this repository.
+
 ### Overview
 
 This was written on a whim to determine the status of a Twitch channel - namely, to determine whether or not it was Online or Offline.
